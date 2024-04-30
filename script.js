@@ -1,7 +1,13 @@
-let notesHTML = document.getElementById("notes-container");
-let button = document.getElementById("addNote");
+let noteContainer = document.querySelector(".notes-container");
+let button = document.querySelector(".addNote");
+
 let titleInput = document.getElementById("title");
 let noteInput = document.getElementById("note");
+let searchButton = document.getElementById("searchButton");
+let searchBar = document.getElementById("searchBar")
+
+
+let notes = []
 
 function deleteNote(evt) {
     evt.target.parentElement.parentElement.remove()
@@ -20,10 +26,31 @@ function createNote() {
     button.addEventListener("click",deleteNote)
 
     div.className = "note";
-    document.body.appendChild(div);
+    noteContainer.appendChild(div);
     div.appendChild(h2);
     div.appendChild(p);
     div.appendChild(button);
+
+    notes.push({title:titleInput.value,note:noteInput.value});
 }
 
+function search() {
+    let notesHTML = Array.from(noteContainer.children)
+
+    for (let i = 0; i < notes.length; i++) {
+        if (notes[i].note.includes(searchBar.value) || notes[i].title.includes(searchBar.value)) {
+            notesHTML[i].style.display = "block";
+        } else {
+            notesHTML[i].style.display = "none";
+        }
+    }
+
+    if (searchBar.value == "") {
+        for (let i = 0; i < notes.length; i++) {
+             notesHTML[i].style.display = "block";
+        }
+    }
+}
+
+searchButton.addEventListener("click",search)
 button.addEventListener("click",createNote)
