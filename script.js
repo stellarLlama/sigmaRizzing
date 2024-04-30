@@ -4,7 +4,7 @@ let titleInput = document.getElementById("title");
 let noteInput = document.getElementById("note");
 
 function deleteNote(evt) {
-    evt.target.parentElement.remove()
+    evt.target.parentElement.parentElement.remove()
 }
 
 function createNote() {
